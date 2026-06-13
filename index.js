@@ -80,7 +80,14 @@ app.get('/products/:id', (req, res) => {
     res.status(200).json(product)
 })
 
-
+app.get('/products/search', (req, res) => {
+    const maxPrice = parseInt(req.query.maxPrice)
+    const results = products.filter(p => p.price <= maxPrice)
+    res.status(200).json({
+        count: results.length,
+        products: results
+    })
+}
 
 
 // ─── 404 HANDLER — ALWAYS LAST ──────────────────
