@@ -139,6 +139,23 @@ app.delete('/products/:id', (req, res) => {
 })
 
 
+//PUT /Products for update
+app.put('/products/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+    const product = products.find(p => p.id === id)
+
+    if (!product) {
+        return res.status(404).json({ error: "Product not found" })
+    }
+
+    const { name, price } = req.body
+    if (name) product.name = name
+    if (price) product.price = price
+
+    res.status(200).json
+    
+
+
 
 
 
