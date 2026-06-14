@@ -160,7 +160,7 @@ app.put('/products/:id', (req, res) => {
 })
 
 // GET /orders — all orders
-app.get('/orders', (req, res) => {
+app.get('/users/:id/orders', (req, res) => {
     const userId = parseInt(req.params.id)
     const user = users.find(u => u.id === userId)
 
@@ -176,34 +176,7 @@ app.get('/orders', (req, res) => {
     })
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ─── 404 — ALWAYS LAST ────────────────────────
+// 404 HANDLER — MUST BE LAST--------------
 app.use((req, res) => {
     res.status(404).json({
         error: "Route not found",
@@ -212,7 +185,27 @@ app.use((req, res) => {
 })
 
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 app.listen(PORT, () => {
