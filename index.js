@@ -159,6 +159,27 @@ app.put('/products/:id', (req, res) => {
     
 })
 
+// GET /orders — all orders
+app.get('/orders', (req, res) => {
+    const userId = parseInt(req.params.id)
+    const user = users.find(u => u.id === userId)
+
+    if (!user) {
+        return res.status(404).json({ error: "User not found" })
+    }
+
+    const userOrders = orders.filter(o => o.userId === userId)
+    res.status(200).json({
+        user: user.name,
+        orderCount: userOrders.length,
+        orders: userOrders
+    })
+})
+
+
+
+
+
 
 
 
