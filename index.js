@@ -116,6 +116,9 @@ app.post('/products', (req, res) => {
     })
 })
 
+
+
+
 // ─── 404 — ALWAYS LAST ────────────────────────
 app.use((req, res) => {
     res.status(404).json({
@@ -123,6 +126,10 @@ app.use((req, res) => {
         path: req.url
     })
 })
+
+
+    
+
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)
