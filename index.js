@@ -116,9 +116,16 @@ app.post('/products', (req, res) => {
     })
 })
 
+//----------REST API-------------
+const orders = [
+    { id: 1, userId: 1, item: "Laptop", amount: 50000},
+    { id: 2, userId: 2, item: "Mouse",amount: 500},
+    { id: 3, userId: 1, item: "Tablet", amount:15000}
+]
 
 
-
+//---------Delete products----------
+app.delete('')
 // ─── 404 — ALWAYS LAST ────────────────────────
 app.use((req, res) => {
     res.status(404).json({
