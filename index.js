@@ -125,7 +125,34 @@ const orders = [
 
 
 //---------Delete products----------
-app.delete('')
+app.delete('/products/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+    const index = products.findIndex(p => p.id === id)
+
+
+
+
+
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ─── 404 — ALWAYS LAST ────────────────────────
 app.use((req, res) => {
     res.status(404).json({
