@@ -130,12 +130,19 @@ app.delete('/products/:id', (req, res) => {
     const index = products.findIndex(p => p.id === id)
 
 
+    if (index === -1){
+        return  res.status(404).json({ error: "Product not found" })
+    }
+    products.splice(index, 1)
+    res.status(200).json({message: "Product deleted successfully"})
+
+})
 
 
 
 
 
-)
+
 
 
 
