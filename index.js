@@ -152,8 +152,13 @@ app.put('/products/:id', (req, res) => {
     if (name) product.name = name
     if (price) product.price = price
 
-    res.status(200).json
+    res.status(200).json({
+        message: "Product updated successfully",
+        product: product
+    })
     
+})
+
 
 
 
