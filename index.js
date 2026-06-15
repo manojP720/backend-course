@@ -124,10 +124,6 @@ const orders = [
 ]
 
 
-app.head('/products', (req, res) => {
-    res.status(200).end()
-}
-
 //---------Delete products----------
 app.delete('/products/:id', (req, res) => {
     const id = parseInt(req.params.id)
