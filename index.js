@@ -36,7 +36,7 @@ const users = [
     { id: 1, name: "Manoj",   city: "Bengaluru" },
     { id: 2, name: "Priya",   city: "Mumbai"    },
     { id: 3, name: "Rahul",   city: "Delhi"     },
-    { id: 4, name: "Sneha",   city: "Kolkata"   },
+    { id: 4, name: "Sneha",   city: "Kolkata"   }, 
     { id: 5, name: "Bhagya",  city: "Chennai"   },
     { id: 6, name: "Gagana",  city: "Tiptur"    },
     { id: 7, name: "Darshan", city: "Tumkur"    }
@@ -123,6 +123,10 @@ const orders = [
     { id: 3, userId: 1, item: "Tablet", amount:15000}
 ]
 
+
+app.head('/products', (req, res) => {
+    res.status(200).end()
+}
 
 //---------Delete products----------
 app.delete('/products/:id', (req, res) => {
