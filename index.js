@@ -61,3 +61,20 @@ app.use((req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)
 })
+
+
+const authMiddleware = (req, res, next) => {
+    const apiKey = req.headers['x-api-key']
+    
+    if (!apiKey || apiKey !== 'manoj123') {
+        return res.status(401).json({ 
+            error: "Unauthorized!",
+            message: "Valid x-api-key header required"
+        })
+    }
+    next()
+}
+
+app.get('/secret', authMiddleware, (req, res) => {
+    res.status(200).json({ message: "This is a secret message!" })
+})
