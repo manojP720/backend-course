@@ -70,6 +70,12 @@ app.delete('/notes/:id', (req, res) => {
     const index = notes.findIndex(n => n.id === id)
     if (index === -1) return res.status(404).json({ error: "Note not found" })
     notes.splice(index, 1)
+  
+  
+  
+  
+  
+  
     res.status(200).json({ message: "Note deleted!" })
 })
 
