@@ -63,8 +63,6 @@ app.listen(PORT, () => {
 })
 
 
-const authMiddleware = (req, res, next) => {
-    const apiKey = req.headers['x-api-key']
     
     if (!apiKey || apiKey !== 'manoj123') {
         return res.status(401).json({ 
@@ -73,7 +71,7 @@ const authMiddleware = (req, res, next) => {
         })
     }
     next()
-}
+
 
 app.get('/secret', authMiddleware, (req, res) => {
     res.status(200).json({ message: "This is a secret message!" })
