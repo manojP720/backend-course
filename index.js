@@ -1,59 +1,95 @@
 const express = require('express')
-const app = express()
-const PORT = 3000
+const mongoose = require('mongoose')
+require('dotenv').config()
 
+const app = express()
 app.use(express.json())
 
-const logger = (req, res, next) => {
-    console.log(`[${new Date().toLocaleString()}] ${req.method} ${req.url}`)
-    next()
-}
-app.use(logger)
+// MongoDB connect
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => console.log('✅ MongoDB Connected!'))
+    .catch(err => console.log('❌ Connection failed:', err))
 
-const timer = (req, res, next) => {
-    req.startTime = Date.now()
-    next()
-}
-app.use(timer)
-
-const checkName = (req, res, next) => {
-    const { name } = req.body
-    if (!name) {
-        return res.status(400).json({ error: "name is required" })
+// Schema — document structure define ಮಾಡು
+const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    age: {
+        type: Number,
+        default: 0
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
-    next()
-}
+})
 
-const authMiddleware = (req, res, next) => {
-    const apiKey = req.headers['x-api-key']
-    if (!apiKey || apiKey !== 'manoj123') {
-        return res.status(401).json({ error: "Unauthorized!" })
+// Model — Schema ನಿಂದ model create ಮಾಡು
+const User = mongoose.model('User', userSchema)
+
+// POST /users — create user
+app.post('/users', async (req, res) => {
+    try {
+        const { username, email, age } = req.body
+
+        const user = new User({ username, email, age })
+        await user.save()
+
+        res.status(201).json({
+            message: "User created!",
+            user: user
+        })
+    } catch (err) {
+        res.status(400).json({ error: err.message })
     }
-    next()
-}
-
-app.get('/', (req, res) => {
-    const timeTaken = Date.now() - req.startTime
-    res.status(200).json({ message: "Hello!", timeTaken: `${timeTaken}ms` })
 })
 
-app.post('/greet', checkName, (req, res) => {
-    res.status(200).json({ message: `Hello ${req.body.name}!` })
+// GET /users — all users
+app.get('/users', async (req, res) => {
+    try {
+        const users = await User.find()
+        res.status(200).json({
+            count: users.length,
+            users: users
+        })
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
 })
 
-app.get('/secret', authMiddleware, (req, res) => {
-    res.status(200).json({ message: "This is a secret message!" })
+// GET /users/:id
+app.get('/users/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+        if (!user) return res.status(404).json({ error: "User not found" })
+        res.status(200).json(user)
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
 })
 
-app.use((err, req, res, next) => {
-    console.error(err.message)
-    res.status(500).json({ error: "Something went wrong!" })
+// DELETE /users/:id
+app.delete('/users/:id', async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.id)
+        if (!user) return res.status(404).json({ error: "User not found" })
+        res.status(200).json({ message: "User deleted!" })
+    } catch (err) {
+        res.status(500).json({ error: err.message })
+    }
 })
 
 app.use((req, res) => {
     res.status(404).json({ error: "Route not found" })
 })
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`)
+app.listen(process.env.PORT, () => {
+    console.log(`Server running at http://localhost:${process.env.PORT}`)
 })
