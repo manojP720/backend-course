@@ -10,6 +10,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.2.1"
-  }
+    "bcryptjs": "^3.0.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manojP720/backend-course.git"
+  },
+  "bugs": {
+    "url": "https://github.com/manojP720/backend-course/issues"
+  },
+  "homepage": "https://github.com/manojP720/backend-course#readme"
 }
