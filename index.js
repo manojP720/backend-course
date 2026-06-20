@@ -93,3 +93,17 @@ app.use((req, res) => {
 app.listen(process.env.PORT, () => {
     console.log(`Server running at http://localhost:${process.env.PORT}`)
 })
+
+
+// ಎಲ್ಲಾ unhandled errors ಇಲ್ಲಿ catch ಆಗುತ್ತೆ
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(err.status || 500).json({
+        error: err.message || "Internal Server Error"
+    })
+})
+
+// Unhandled Promise Rejections
+process.on('unhandledRejection', (err) => {
+    console.log('Unhandled Rejection:', err.message)
+})
