@@ -101,4 +101,9 @@ app.use((req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)
 })
-
+class AppError extends Error {
+    constructor(message, statusCode) {
+        super(message)
+        this.statusCode = statusCode
+    }
+}
