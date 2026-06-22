@@ -108,6 +108,13 @@ async function fetchAllExchangeRates() {
     for (const pair of pairs) {
         try {
             const rate = await fetchExchangeRate(pair.base, pair.target)
+            results[`${pair.base}/${pair.target}`] = rate
+        } catch (err) {
+            results[`${pair.base}/${pair.target}`] = `Error: ${err.message}`
+        }
+    }
+    return results;
+}
 
 // Start the monitor immediately and then every 60 seconds
 pollExchangeRates()
