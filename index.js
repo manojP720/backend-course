@@ -97,6 +97,18 @@ async function pollExchangeRates() {
     await Promise.all(pairs.map(pair => updateMonitoredRate(pair.base, pair.target)))
 }
 
+
+
+async function fetchAllExchangeRates() {
+    const pairs = [
+        { base: 'USD', target: 'EUR' },
+        { base: 'USD', target: 'INR' }
+    ]   
+    const results = {}
+    for (const pair of pairs) {
+        try {
+            const rate = await fetchExchangeRate(pair.base, pair.target)
+
 // Start the monitor immediately and then every 60 seconds
 pollExchangeRates()
 setInterval(pollExchangeRates, 60 * 1000)
