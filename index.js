@@ -88,6 +88,16 @@ async function updateMonitoredRate(base = 'USD', target = 'EUR') {
     }
 }
 
+
+async function fetchAndLogRate(base, target) {
+    try {
+        const rate = await fetchExchangeRate(base, target)  
+        console.log(`Current exchange rate ${base}/${target}: ${rate}`)
+    } catch (err) {
+        console.error('Error fetching exchange rate:', err.message)
+    }
+}
+
 async function pollExchangeRates() {
     const pairs = [
         { base: 'USD', target: 'EUR' },
