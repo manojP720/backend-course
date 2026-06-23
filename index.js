@@ -226,3 +226,20 @@ app.use((err, req, res, next) => {
 process.on('unhandledRejection', (err) => {
     console.log('Unhandled Rejection:', err.message)
 })
+
+
+async function gracefulShutdown() {
+    console.log('Shutting down gracefully...')
+    try {
+        await mongoose.connection.close()
+        console.log('MongoDB connection closed.')
+        process.exit(0)
+    }
+
+    catch (err) {
+        console.error('Error during shutdown:', err.message)
+        process.exit(1)
+    }
+}
+
+
