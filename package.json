@@ -1,0 +1,23 @@
+{
+  "name": "notes-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manojP720/backend-course.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manojP720/backend-course/issues"
+  },
+  "homepage": "https://github.com/manojP720/backend-course#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
