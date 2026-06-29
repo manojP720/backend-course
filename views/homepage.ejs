@@ -14,6 +14,12 @@
 
     <main>
         <form action="/register" method="POST">
+            <% errors.forEach(error => { %>
+                <p><%= error %></p>
+            
+            <%})  %>
+
+
         <fieldset>
             <legend>Create an account</legend>
             <label for ="username"><small>Username</small></label>
