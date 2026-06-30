@@ -1,6 +1,7 @@
-const express = require('express')
+require("dotenv").config
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
+const express = require("express")
 const db = require("better-sqlite3")("ourApp.db")
 db.pragma("journal_mode = WAL")
 
@@ -82,6 +83,8 @@ app.post("/register", (req , res) =>{
 
 
     //log the user in by giving them a cookie
+const ourTakenValue = jwt.sign()
+
     res.cookie("ourSimpleApp","supertopsecretvalue", {
       httpOnly: true,
       secure: true,
