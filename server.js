@@ -1,4 +1,6 @@
 const express = require('express')
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcrypt")
 const db = require("better-sqlite3")("ourApp.db")
 db.pragma("journal_mode = WAL")
 
@@ -68,10 +70,25 @@ app.post("/register", (req , res) =>{
     }
     
     // save the new user into a database 
+    const salt = bcrypt.genSaltSync(10)
+    req.body.password = bcrypt.haashSync(req.body.password, salt)
+
+
+
+
+    const ourStatement = db.prepare("INSERT INTO users (username, password) VALUES (?, ?)")
+    ourStatement.run(req.body.username, req.body.password)
 
 
 
     //log the user in by giving them a cookie
+    res.cookie("ourSimpleApp","supertopsecretvalue", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 1000 * 60 * 60 * 24
+    })
+    res.send("Thank you !")
   
 
 })

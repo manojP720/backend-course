@@ -121,3 +121,7 @@ dist
 
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#.json
+
+ourApp.db
+ourApp.db-shm
+ourApp.db-wal
