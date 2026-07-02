@@ -74,6 +74,23 @@ app.get("/logout", (req, res) => {
     res.redirect("/")
 })
 
+app.post("/login", (req, res) => {
+    const errors = []
+    if (typeof req.body.username !== "string") req.body.username = ""
+    if (typeof req.body.password !== "string") req.body.password = ""
+
+    if (!req.body.username.trim()== "") errors.push("Invalid Username / Password.")
+    if (!req.body.password  == "") errors.push("Invalid Username / Password.")
+
+    if (errors.length) {
+        return res.render("login", { errors })
+    }  
+
+    res.send("Thank you for logging in !")
+})
+
+
+
 app.post("/register", (req , res) =>{
     const errors = []
 

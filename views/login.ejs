@@ -4,9 +4,27 @@
 <body>
     <%- include('includes/header.ejs') %>
 
-    <main>
-        <h3>login page </h3>
-        <p>manoj as created some thing new . </p>
+     <main>
+        <form action="/login" method="POST">
+            <% errors.forEach(error => { %>
+                <p class="notice"><%= error %></p>
+            
+            <%})  %>
+
+
+        <fieldset>
+            <legend>Login</legend>
+            <label for ="username"><small>Username</small></label>
+            <input type="text" id="username" name="username" autocomplete="off">
+
+            <label for ="password"><small>passsword</small></label>
+            <input type="password" id="password" name="password" autocomplete="off">
+
+            <br />
+            <button>Login</button>
+
+        </fieldset>
+        </form>
     </main>
 
     <%- include('includes/footer.ejs') %>
