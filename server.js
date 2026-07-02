@@ -32,6 +32,24 @@ app.use(express.static("public"))
 
 app.use(function (req, res, next){
     res.locals.errors = []
+
+
+    // try to get the cookie from the request
+    try {
+      const decoded = jwt.verify(req.cookies.ourSimpleApp, process.env.JWTSECRET)
+      req.user = decoded
+      
+    } catch (err) {
+      // Ignore JWT verification errors
+      req.user = false
+    }
+
+    res.locals.user = req.user
+    console.log("req.user", req.user)
+
+
+
+    
     next()
 
 })
