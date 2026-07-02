@@ -58,10 +58,20 @@ app.use(function (req, res, next){
 
 const port = 3000
 
-app.get('/', (req, res) => res.render("homepage"))
+app.get('/', (req, res) => {
+  if (req.user) {
+    res.render("dashboard")
+  } else {
+    res.render("homepage")
+  }
+})
 
 app.get("/login", (req, res) => {
     res.render("login")
+})
+app.get("/logout", (req, res) => {
+    res.clearCookie("ourSimpleApp")
+    res.redirect("/")
 })
 
 app.post("/register", (req , res) =>{
